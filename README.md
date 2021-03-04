@@ -1,5 +1,5 @@
 # 취미클래스 플랫폼(Class 101, 탈잉, 클래스톡) 별 비교
-## : 취미생활∙자기계발 트렌드를 반영한 추천시스템
+## : 취미생활∙자기계발 트렌드를 반영한 검색/추천시스템
 #### CRAWLING PROJECT
 #### - Period: 2021. 02. 22. ~ 2021. 03.19.
 #### - 인원 : 2명
@@ -31,6 +31,9 @@
 
 <br/>
 
+![예상](https://user-images.githubusercontent.com/75402257/110046690-d9096900-7d8f-11eb-89e6-6fa1be4234bd.PNG)
+
+<br/>
 
 ## 2. Goals
 
@@ -45,14 +48,23 @@
 <br/>
 
 ## 4. Process
-### I.
--
+### I. Crawling Method
+- Class101(클래스101) : Jquery (수정필)
+- Taling(탈잉) : Scrapy
+- ClassTok(클래스톡) : BeautifulSoup / Scrapy (크롤링 방식에 따라 start_now, content 수가 달라짐)
 
-### II. 
+### II. DataBase
+- Mysql
+
+### III. Crawling Cycle
+
+- 실시간성을 높이기 위해 6시간 간격 (하루 3번 정도 업데이트 : 클래스톡, 탈잉의 경우)
 - 
 
-### III. 
--
+## 5. Issue
+### 5-1. keyword 분류
+- Mysql - like 활용
+- 
 
 ### Member / role
 
