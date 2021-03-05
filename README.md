@@ -55,16 +55,20 @@
 
 ### II. DataBase
 - Mysql
+- DB로 옮겨서 link 쪼개기 
 
 ### III. Crawling Cycle
 
 - 실시간성을 높이기 위해 6시간 간격 (하루 3번 정도 업데이트 : 클래스톡, 탈잉의 경우)
-- 
+- 서버를 늘려서 실시간성 증대
 
 ## 5. Issue
 ### 5-1. keyword 분류
-- Mysql - like 활용
-- 
+- Mysql - like : DB, tag 컬럼 추가(구분자)
+- 해시태그, 태그 같이 저장 -> DB (중복검색 가능성 염두에 두고 태그 나누기)
+- Flask를 이용해서 서비스 구현가능: 검색/추천 (키 값 별도로 빼기)
+
+
 
 ### Member / role
 
