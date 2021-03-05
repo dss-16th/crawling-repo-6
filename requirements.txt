@@ -1,0 +1,9 @@
+ipython
+jupyter
+pandas
+requests
+bs4
+selenium
+scrapy
+geohash2
+
