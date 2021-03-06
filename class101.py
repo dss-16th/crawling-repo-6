@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 import requests
 import time
@@ -19,6 +20,7 @@ prohibit_url = []
 for txt in req.text.split('\n'):
     if 'Disallow: ' in txt:
         prohibit_url.append('https://class101.net' + txt.replace('Disallow: ', ''))
+        
 
 class101_df = pd.DataFrame(columns=['url_detail', 'url', 'title', 'category_1', 'category_2', 'state', 'o_price', 's_price', 'teacher', 'teacher_nick', 'feedback_count', 'feedback_good', 'reservation', 'heart'])
 
@@ -55,9 +57,6 @@ for cat_ko, cat_eng, brand in categories:
         feedback_good = datas[0]['data']['products'][i]['feedbackGoodCount']
         reservation = datas[0]['data']['products'][i]['reservationCount']
         heart = datas[0]['data']['products'][i]['wishlistedCount']
-        update_time = datas[0]['data']['products'][0]['lastManagement']['managedAt']
-        first_time = datas[0]['data']['products'][0]['author']['createdAt']
-
 
 
         row = {
@@ -74,9 +73,7 @@ for cat_ko, cat_eng, brand in categories:
             'feedback_count': feedback_count, 
             'feedback_good': feedback_good, 
             'reservation': reservation, 
-            'heart': heart,
-            'update_time': update_time,
-            'first_time': first_time
+            'heart': heart
             }
         onetime.append(row)
         
@@ -87,11 +84,13 @@ for cat_ko, cat_eng, brand in categories:
 
 class101_df.to_csv(f'./datas/class101_{datetime.datetime.now().strftime("%y%m%d%H%M%S")}.csv', encoding='utf-8')
 
+
 print('전체')
 print('time: ', round((time.time() - start)/60, 1), '분', sep='')
 print('\n')
+
 print('total: ', len(class101_df), sep='')
 for cat_ko in cat_ko_ls:
     print(f'{cat_ko}: ', len(class101_df[class101_df['category_1']==cat_ko]), sep='')
 
-# url_detail, title, category_1, category_2, state, o_price, s_price, teacher, teacher_nick, feedback_count, feedback_good, reservation, heart, update_time, first_time
+# url_detail, title, category_1, category_2, state, o_price, s_price, teacher, teacher_nick, feedback_count, feedback_good, reservation, heart
