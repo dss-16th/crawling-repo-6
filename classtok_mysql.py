@@ -10,7 +10,7 @@ Base = declarative_base()
 
 class User(Base):
     
-    __tablename__ = "class101" # 테이블 이름
+    __tablename__ = "classtok" # 테이블 이름
     
     # 컬럼 데이터 작성
     site = Column(String(30))
