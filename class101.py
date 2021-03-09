@@ -1,5 +1,4 @@
 
-# -*- coding: utf-8 -*-
 import requests
 import time
 import datetime
@@ -7,8 +6,8 @@ import pandas as pd
 start  = time.time()
 
 
-def rmEmoji(inputData):
-    return inputData.encode('utf-8', 'ignore').decode('utf-8').encode('ascii', 'ignore').decode('ascii')
+# def rmEmoji(inputData):
+#     return inputData.encode('utf-8', 'ignore').decode('utf-8')#.encode('ascii', 'ignore').decode('ascii')
 
 
 offset = 28 * 0
@@ -93,8 +92,8 @@ for cat_ko, cat_eng, brand in categories:
 #             'url_detail': url_detail, 
             'site': site,
             'link': link,
-            'title': rmEmoji(title),
-            'teacher': rmEmoji(teacher),
+            'title': title,
+            'teacher': teacher,
             'category_1': category_1,
             'category_2': category_2,
             's_price': s_price,
