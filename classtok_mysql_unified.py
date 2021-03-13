@@ -47,7 +47,7 @@ print('\n')
 
 
 
-classtok_df.to_csv(f'./datas/classtok_{datetime.datetime.now().strftime("%y%m%d%H%M%S")}.csv', encoding='utf-8')
+classtok_df.to_csv(f'/home/ubuntu/notebooks/crawl-repo-6/datas/classtok_{datetime.datetime.now().strftime("%y%m%d%H%M%S")}.csv', encoding='utf-8')
 
 
 print('전체')
@@ -109,3 +109,4 @@ session = Session()
 session
 
 classtok_df.to_sql(name='classtok', con=engine, if_exists='replace')
+print('db저장완료, ', 'time: ', round((time.time() - start)/60, 1), '분', sep='')

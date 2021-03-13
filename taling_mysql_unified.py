@@ -77,7 +77,7 @@ for cat1, j in zip(cat1s, range(len(cat1s))):
                 
             taling_df = taling_df.append(onetime)
 
-taling_df.to_csv(f'./datas/taling_{datetime.datetime.now().strftime("%y%m%d%H%M%S")}.csv', encoding='utf-8')
+taling_df.to_csv(f'/home/ubuntu/notebooks/crawl-repo-6/datas/taling_{datetime.datetime.now().strftime("%y%m%d%H%M%S")}.csv', encoding='utf-8')
                 
 print('개수: ', len(taling_df), ' ', 'soldout: ', soldout, sep='')
 print(round((time.time() - start)/60, 1), '분', sep='')
@@ -136,3 +136,4 @@ session = Session()
 session
 
 taling_df.to_sql(name='taling', con=engine, if_exists='replace')
+print('db저장완료, ', 'time: ', round((time.time() - start)/60, 1), '분', sep='')

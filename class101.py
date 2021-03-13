@@ -109,7 +109,7 @@ for cat_ko, cat_eng, brand in categories:
     print('time: ', round((time.time() - start)/60, 1), '분', sep='')
     print('\n')
 
-class101_df.to_csv(f'./datas/class101_{datetime.datetime.now().strftime("%y%m%d%H%M%S")}.csv', encoding='utf-8')
+class101_df.to_csv(f'/home/ubuntu/notebooks/crawl-repo-6/datas/class101_{datetime.datetime.now().strftime("%y%m%d%H%M%S")}.csv', encoding='utf-8')
 
 
 print('전체')
