@@ -18,7 +18,7 @@ links = []
 for i in range(len(elements)):
     links.append('https://classtok.net' + str(elements[i]).replace('<a class="product_info" href="', '').split('">\n<span>')[0])
 
-classtok_df = pd.DataFrame(columns=['site', 'link', 'title', 'teacher', 'category_1', 'category_2', 's_price', 'discount', 'contentment'])
+classtok_df = pd.DataFrame(columns=['site', 'link', 'title', 'teacher', 'category_1', 'category_2', 's_price', 'discount', 'contentment', 'crawling_time'])
 
 onetime = []
 
@@ -28,7 +28,7 @@ for element in elements:
     try:
         likes = element.select_one('.product_star').text.split()[0]
     except:
-        likes = ''
+        likes = '평가 없음'
     
     onetime.append({
         "site" : site,
@@ -45,7 +45,7 @@ classtok_df = classtok_df.append(onetime)
 print('time: ', round((time.time() - start)/60, 1), '분', sep='')
 print('\n')
 
-
+classtok_df['crawling_time'] = datetime.datetime.now().strftime("%y%m%d%H%M%S")
 classtok_df = classtok_df.reset_index(drop=True)
 classtok_df.to_csv(f'/home/ubuntu/notebooks/crawl-repo-6/datas/classtok_{datetime.datetime.now().strftime("%y%m%d%H%M%S")}.csv', encoding='utf-8')
 
@@ -81,9 +81,10 @@ class User(Base):
     s_price = Column(String(20))
     discount = Column(String(20))
     contentment = Column(String(20))
+    crawling_time = Column(String(20))
     
     # 생성자 함수
-    def __init__(self, site, link, title, category_1, category_2, s_price, discount, contentment):
+    def __init__(self, site, link, title, category_1, category_2, s_price, discount, contentment, crawling_time):
         self.site = site
         self.link = link
         self.title = title
@@ -92,12 +93,13 @@ class User(Base):
         self.s_price = s_price
         self.discount = discount
         self.contentment = contentment
+        self.crawling_time = crawling_time
         
     # repr 함수
     def __repr__(self):
-        return "<User {}, {}, {}, {}, {}, {}, {}, {}>".format(
+        return "<User {}, {}, {}, {}, {}, {}, {}, {}, {}>".format(
         self.site, self.link, self.title, self.category_1, 
-        self.category_2, self.s_price, self.discount, self.contentment)
+        self.category_2, self.s_price, self.discount, self.contentment, self.crawling_time)
     
 
 # engine에 연결된 데이터 베이스(test)에 테이블 생성
