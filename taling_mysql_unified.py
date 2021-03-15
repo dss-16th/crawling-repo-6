@@ -21,7 +21,7 @@ cat1_design = list(zip([3, 201, 206, 209, 193, 199], ['건축', '그래픽디자
 cat1_language = list(zip([41, 42, 43, 44, 51], ['영어회화', '중국어회화', '일본어회화', '어학자격증', '기타 외국어']))
 cat1s = [cat1_beauty_health, cat1_activity, cat1_life, cat1_hobby, cat1_money, cat1_career, cat1_design, cat1_language]
 cat1s_ko = ['뷰티/헬스', '액티비티', '라이프', '취미/공예', '머니', '커리어', '디자인/영상', '외국어']
-taling_df = pd.DataFrame(columns=['site', 'link', 'title', 'teacher', 'category_1', 'category_2', 's_price', 'discount', 'contentment'])
+taling_df = pd.DataFrame(columns=['site', 'link', 'title', 'teacher', 'category_1', 'category_2', 's_price', 'discount', 'contentment', 'crawling_time'])
 
 soldout = 0
 end_pages = []
@@ -57,7 +57,7 @@ for cat1, j in zip(cat1s, range(len(cat1s))):
                     name_nick = soup.select('#top-space > div > div > a > div.profile_box > div.nick')[i].text.strip()
                     name_real = soup.select('#top-space > div > div > a > div.profile_box > div.name')[i].text.strip()
                     teacher = name_nick + '[' + name_real + ']'
-                    discount = 0
+                    discount = "0"
                     
                     row = {
                         'site': site,
@@ -76,6 +76,7 @@ for cat1, j in zip(cat1s, range(len(cat1s))):
                     soldout += 1
                 
             taling_df = taling_df.append(onetime)
+taling_df['crawling_time'] = datetime.datetime.now().strftime("%y%m%d%H%M%S")
 taling_df = taling_df.reset_index(drop=True)
 taling_df.to_csv(f'/home/ubuntu/notebooks/crawl-repo-6/datas/taling_{datetime.datetime.now().strftime("%y%m%d%H%M%S")}.csv', encoding='utf-8')
                 
@@ -108,9 +109,10 @@ class User(Base):
     s_price = Column(String(20))
     discount = Column(String(20))
     contentment = Column(String(20))
+    crawling_time = Column(String(20))
     
     # 생성자 함수
-    def __init__(self, site, link, title, category_1, category_2, s_price, discount, contentment):
+    def __init__(self, site, link, title, category_1, category_2, s_price, discount, contentment, crawling_time):
         self.site = site
         self.link = link
         self.title = title
@@ -119,12 +121,13 @@ class User(Base):
         self.s_price = s_price
         self.discount = discount
         self.contentment = contentment
+        self.crawling_time = crawling_time
         
     # repr 함수
     def __repr__(self):
-        return "<User {}, {}, {}, {}, {}, {}, {}, {}>".format(
+        return "<User {}, {}, {}, {}, {}, {}, {}, {}, {}>".format(
         self.site, self.link, self.title, self.category_1, 
-        self.category_2, self.s_price, self.discount, self.contentment)
+        self.category_2, self.s_price, self.discount, self.contentment, self.crawling_time)
     
 
 # engine에 연결된 데이터 베이스(test)에 테이블 생성
