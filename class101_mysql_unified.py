@@ -106,9 +106,10 @@ for cat_ko, cat_eng, brand in categories:
         
         
     class101_df = class101_df.append(onetime)
+
     print('time: ', round((time.time() - start)/60, 1), '분', sep='')
     print('\n')
-
+class101_df = class101_df.reset_index(drop=True)
 class101_df.to_csv(f'/home/ubuntu/notebooks/crawl-repo-6/datas/class101_{datetime.datetime.now().strftime("%y%m%d%H%M%S")}.csv', encoding='utf-8')
 
 
