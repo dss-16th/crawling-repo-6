@@ -76,6 +76,7 @@ for cat1, j in zip(cat1s, range(len(cat1s))):
                     soldout += 1
                 
             taling_df = taling_df.append(onetime)
+taling_df = taling_df.reset_index(drop=True)
 
 taling_df.to_csv(f'/home/ubuntu/notebooks/crawl-repo-6/datas/taling_{datetime.datetime.now().strftime("%y%m%d%H%M%S")}.csv', encoding='utf-8')
                 
