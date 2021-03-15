@@ -46,7 +46,7 @@ print('time: ', round((time.time() - start)/60, 1), '분', sep='')
 print('\n')
 
 
-
+classtok_df = classtok_df.reset_index(drop=True)
 classtok_df.to_csv(f'/home/ubuntu/notebooks/crawl-repo-6/datas/classtok_{datetime.datetime.now().strftime("%y%m%d%H%M%S")}.csv', encoding='utf-8')
 
 
