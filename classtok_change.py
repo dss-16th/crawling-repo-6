@@ -18,7 +18,7 @@ links = []
 for i in range(len(elements)):
     links.append('https://classtok.net' + str(elements[i]).replace('<a class="product_info" href="', '').split('">\n<span>')[0])
 
-classtok_df = pd.DataFrame(columns=['site', 'link', 'title', 'teacher', 'category_1', 'category_2', 's_price', 'discount', 'contentment'])
+classtok_df = pd.DataFrame(columns=['site', 'link', 'title', 'teacher', 'category_1', 'category_2', 's_price', 'discount', 'contentment', 'crawling_time'])
 
 onetime = []
 
@@ -45,7 +45,7 @@ classtok_df = classtok_df.append(onetime)
 print('time: ', round((time.time() - start)/60, 1), '분', sep='')
 print('\n')
 
-
+classtok_df['crawling_time'] = datetime.datetime.now().strftime("%y%m%d%H%M%S")
 classtok_df = classtok_df.reset_index(drop=True)
 classtok_df.to_csv(f'/home/ubuntu/notebooks/crawl-repo-6/classtok_{datetime.datetime.now().strftime("%y%m%d%H%M%S")}.csv', encoding='utf-8')
 
