@@ -46,7 +46,8 @@
 - 
 - 
 - 
-<br/>
+
+
 
 ## 4. Process
 
@@ -77,7 +78,13 @@
 - 해시태그, 태그 같이 저장 -> DB (중복검색 가능성 염두에 두고 태그 나누기)
 
 <br/>
+
+
 ## 4. Process
+- 데이터 수집 (웹 사이트 크롤링)
+- DB 저장 : SQLAlchemy -> Mysql(RDBMS) 
+- 데이터 성능검사 (검색키워드)
+- Flask - DB 연동
 
 
 ### I. Crawling Method
@@ -87,8 +94,10 @@
    -(Category_1, Category_2 분류 -> 키워드검색)
 - ClassTok(클래스톡) : Scrapy -> BeautifulSoup   
 
+![DDDDD](https://user-images.githubusercontent.com/75402257/111388305-6040d000-86f2-11eb-8ba7-4507b8ab9b7f.PNG) ![FFFF](https://user-images.githubusercontent.com/75402257/111388311-620a9380-86f2-11eb-9ef9-3bd3b5e7afbe.PNG)
 
 <br/>
+
 ### II. DataBase
 
 - Mysql (RDBMS): 검색/키워드 추천을 위한 인덱싱의 중요성
@@ -100,7 +109,8 @@
 
    - 매일 1시간 간격 or 매일 1회 크롤링을 통한 데이터 수집내용 비교
    - Mysql에는 기존 데이터 지우고 업데이하는 형식으로 크롤링 진행중
-   - csv 포맷으로도 축적중 
+      - 데이터 축적되는 방식으로 변경 
+   - csv 백업형태로 저장
 
 
 - 서버를 늘려서 실시간성 증대 
@@ -110,7 +120,8 @@
 
 ## 5. Issue
 
-
+- 키워드 검색 정확도 (모델 성능검사)
+- 
 
 ### 5-1. keyword 분류
 
@@ -126,7 +137,7 @@
   - 
 ### 5-2. 서비스 구현
 
-![FFF](https://user-images.githubusercontent.com/75402257/111082209-6d22bf80-854a-11eb-8bfc-1628a61af0a8.PNG)
+![FF](https://user-images.githubusercontent.com/75402257/111388270-54550e00-86f2-11eb-9c8b-cb320b8f1b37.PNG)
 - Flask를 이용해서 서비스 구현가능: 검색/추천 시스템(키 값 별도로 빼기)
   - Flask - DB 연동
 
@@ -135,8 +146,8 @@
 
 ### Member / role
 
-- **고원진** / 클래스 101 웹크롤링,
-- **장지혜** / 탈잉, 클래스톡 웹크롤링,
+- **고원진** / 탈잉, 클래스 101 웹크롤링, DB연동(Mysql),
+- **장지혜** / 탈잉, 클래스톡 웹크롤링, 웹서비스(Flask), 
 
 <br/>
 
