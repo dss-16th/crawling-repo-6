@@ -56,7 +56,10 @@ for cat1, j in zip(cat1s, range(len(cat1s))):
                     except:
                         location = ''
                         title = soup.select('#top-space > div > div> a > div.title')[i].text.strip()
-                    s_price = '월 ' + soup.select('#top-space > div > div > a > div.price > div > span > span > span')[i].text.strip() + '원'
+                    try:
+                        s_price = '월 ' + soup.select('#top-space > div > div > a > div.price > div > span > span > span')[i].text.strip() + '원'
+                    except:
+                        s_price = '가격미정'
                     try:
                         contentment = len(soup.select('#top-space > div > div > a > div.info > div > div.star')[i].text.strip())
                     except:
