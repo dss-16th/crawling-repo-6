@@ -50,10 +50,17 @@ for cat1, j in zip(cat1s, range(len(cat1s))):
                     site = '탈잉'
                     category_2 = cat1[x][1]
                     category_1 = cat1s_ko[j]
-                    location = soup.select('#top-space > div > div > a > div.info > div > div.location')[i].text.strip()
-                    title = '[' + location + ']' + soup.select('#top-space > div > div> a > div.title')[i].text.strip()
+                    try:
+                        location = soup.select('#top-space > div > div > a > div.info > div > div.location')[i].text.strip()
+                        title = '[' + location + ']' + soup.select('#top-space > div > div> a > div.title')[i].text.strip()
+                    except:
+                        location = ''
+                        title = soup.select('#top-space > div > div> a > div.title')[i].text.strip()
                     s_price = '월 ' + soup.select('#top-space > div > div > a > div.price > div > span > span > span')[i].text.strip() + '원'
-                    contentment = len(soup.select('#top-space > div > div > a > div.info > div > div.star')[i].text.strip())
+                    try:
+                        contentment = len(soup.select('#top-space > div > div > a > div.info > div > div.star')[i].text.strip())
+                    except:
+                        contentment = '평가 없음'
                     name_nick = soup.select('#top-space > div > div > a > div.profile_box > div.nick')[i].text.strip()
                     name_real = soup.select('#top-space > div > div > a > div.profile_box > div.name')[i].text.strip()
                     teacher = name_nick + '[' + name_real + ']'
