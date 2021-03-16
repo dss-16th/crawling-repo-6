@@ -37,43 +37,121 @@
 
 ## 2. Goals
 
--
--
+- 세 개 플랫폼 데이터를 Mysql DB 저장 및 키워드 분류
+- 소비자가 필요한 클래스 정보를 키워드 검색을 통해 얻을 수 있는 검색엔진 구현
+ - 웹 서비스 제공
 
 ## 3. Result
 
 - 
 - 
 - 
-<br/>
+
+
 
 ## 4. Process
-### I. Crawling Method
+
+### I. Crawling Method1
 - Class101(클래스101) : Jquery (수정필)
-- Taling(탈잉) : Scrapy
-- ClassTok(클래스톡) : BeautifulSoup / Scrapy (크롤링 방식에 따라 start_now, content 수가 달라짐)
+- Taling(탈잉) : Scrapy -> BeautifulSoup 으로 크롤링 방식 변경
+   -(Category_1, Category_2 분류 -> 키워드검색)
+- ClassTok(클래스톡) : Scrapy -> BeautifulSoup   
 
 ### II. DataBase
-- Mysql
-- DB로 옮겨서 link 쪼개기 
+- Mysql (RDBMS): 검색/키워드 추천을 위한 인덱싱의 중요성
+- Flask를 통한 서비스 구현을 위한 DB 연동 (업데이트)
+- Backup DB에 관한 논의 필
 
 ### III. Crawling Cycle
 
 - 실시간성을 높이기 위해 6시간 간격 (하루 3번 정도 업데이트 : 클래스톡, 탈잉의 경우)
-- 서버를 늘려서 실시간성 증대
+   - 매일 1시간 간격 or 매일 1회 크롤링을 통한 데이터 수집내용 비교
+   - Mysql에는 기존 데이터 지우고 업데이하는 형식으로 크롤링 진행중
+   - csv 포맷으로도 축적중 
+   
+- 서버를 늘려서 실시간성 증대 
+   - 각 서비스별 정보만은 text로 제공시 서버를 분산하지 않아도 된다는 판단
 
 ## 5. Issue
 ### 5-1. keyword 분류
 - Mysql - like : DB, tag 컬럼 추가(구분자)
 - 해시태그, 태그 같이 저장 -> DB (중복검색 가능성 염두에 두고 태그 나누기)
-- Flask를 이용해서 서비스 구현가능: 검색/추천 (키 값 별도로 빼기)
+
+<br/>
 
 
+## 4. Process
+- 데이터 수집 (웹 사이트 크롤링)
+- DB 저장 : SQLAlchemy -> Mysql(RDBMS) 
+- 데이터 성능검사 (검색키워드)
+- Flask - DB 연동
+
+
+### I. Crawling Method
+
+- Class101(클래스101) : Jquery (수정필)
+- Taling(탈잉) : Scrapy -> BeautifulSoup 으로 크롤링 방식 변경
+   -(Category_1, Category_2 분류 -> 키워드검색)
+- ClassTok(클래스톡) : Scrapy -> BeautifulSoup   
+
+
+<br/>
+
+### II. DataBase
+
+![CCCC](https://user-images.githubusercontent.com/75402257/111389073-b06c6200-86f3-11eb-86f0-117682482f4b.PNG)
+
+
+- Mysql (RDBMS): 검색/키워드 추천을 위한 인덱싱의 중요성
+- Flask를 통한 서비스 구현을 위한 DB 연동 (업데이트)
+- Backup DB에 관한 논의 필
+
+![RRRRR](https://user-images.githubusercontent.com/75402257/111388988-9468c080-86f3-11eb-8f39-e59c8e5bf4b5.PNG)
+
+### III. Crawling Cycle
+- 실시간성을 높이기 위해 6시간 간격 (하루 3번 정도 업데이트 : 클래스톡, 탈잉의 경우)
+
+   - 매일 1시간 간격 or 매일 1회 크롤링을 통한 데이터 수집내용 비교
+   - Mysql에는 기존 데이터 지우고 업데이하는 형식으로 크롤링 진행중
+      - 데이터 축적되는 방식으로 변경 
+   - csv 백업형태로 저장
+
+
+- 서버를 늘려서 실시간성 증대 
+   - 각 서비스별 정보만은 text로 제공시 서버를 분산하지 않아도 된다는 판단
+
+<br/>
+
+## 5. Issue
+
+- 키워드 검색 정확도 (모델 성능검사)
+- 
+
+### 5-1. keyword 분류
+
+![mysql 키워드](https://user-images.githubusercontent.com/75402257/111082179-46648900-854a-11eb-8266-45f7414260c0.PNG)
+<br/>
+
+- Mysql - like : DB, tag 컬럼 추가(구분자)
+
+- 해시태그, 태그 같이 저장 -> DB (중복검색 가능성 염두에 두고 태그 나누기)
+
+- 정확한 키워드 검색을 위한 자연어 처리 및 문자열 형태소분류
+  - 차후 학습이 더 진행된 상태에서 Develop 논의
+  - 
+### 5-2. 서비스 구현
+
+![FF](https://user-images.githubusercontent.com/75402257/111388270-54550e00-86f2-11eb-9c8b-cb320b8f1b37.PNG)
+- Flask를 이용해서 서비스 구현가능: 검색/추천 시스템(키 값 별도로 빼기)
+  - Flask - DB 연동
+
+
+<br/>
 
 ### Member / role
 
-- **고원진** / 클래스 101 웹크롤링,
-- **장지혜** / 탈잉, 클래스톡 웹크롤링,
+- **고원진** / 탈잉, 클래스 101 웹크롤링, DB연동(Mysql),
+- **장지혜** / 탈잉, 클래스톡 웹크롤링, 웹서비스(Flask), 
 
 <br/>
 
