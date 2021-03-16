@@ -94,15 +94,19 @@
    -(Category_1, Category_2 분류 -> 키워드검색)
 - ClassTok(클래스톡) : Scrapy -> BeautifulSoup   
 
-![DDDDD](https://user-images.githubusercontent.com/75402257/111388305-6040d000-86f2-11eb-8ba7-4507b8ab9b7f.PNG) ![FFFF](https://user-images.githubusercontent.com/75402257/111388311-620a9380-86f2-11eb-9ef9-3bd3b5e7afbe.PNG)
 
 <br/>
 
 ### II. DataBase
 
+![CCCC](https://user-images.githubusercontent.com/75402257/111389073-b06c6200-86f3-11eb-86f0-117682482f4b.PNG)
+
+
 - Mysql (RDBMS): 검색/키워드 추천을 위한 인덱싱의 중요성
 - Flask를 통한 서비스 구현을 위한 DB 연동 (업데이트)
 - Backup DB에 관한 논의 필
+
+![RRRRR](https://user-images.githubusercontent.com/75402257/111388988-9468c080-86f3-11eb-8f39-e59c8e5bf4b5.PNG)
 
 ### III. Crawling Cycle
 - 실시간성을 높이기 위해 6시간 간격 (하루 3번 정도 업데이트 : 클래스톡, 탈잉의 경우)
