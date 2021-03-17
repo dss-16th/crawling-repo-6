@@ -46,7 +46,7 @@ for cat1, j in zip(cat1s, range(len(cat1s))):
             soup = BeautifulSoup(response.text, 'html.parser')
             for i in range(0, len(soup.select('#top-space > div > div > a > div.img'))):
                 if 'SOLD OUT' not in str(soup.select('#top-space > div > div > a > div.img')[i]):
-                    link = soup.select('#top-space > div > div > a')[i]['href']
+                    link = 'https://taling.me/' + soup.select('#top-space > div > div > a')[i]['href']
                     site = '탈잉'
                     category_2 = cat1[x][1]
                     category_1 = cat1s_ko[j]
@@ -59,7 +59,7 @@ for cat1, j in zip(cat1s, range(len(cat1s))):
                     try:
                         s_price = '월 ' + soup.select('#top-space > div > div > a > div.price > div > span > span > span')[i].text.strip() + '원'
                     except:
-                        s_price = '링크 참조'
+                        s_price = '링크 참조' 
                     try:
                         contentment = len(soup.select('#top-space > div > div > a > div.info > div > div.star')[i].text.strip())
                     except:
