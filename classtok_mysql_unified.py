@@ -47,7 +47,7 @@ print('\n')
 
 classtok_df['crawling_time'] = datetime.datetime.now().strftime("%y%m%d%H%M%S")
 classtok_df = classtok_df.reset_index(drop=True)
-classtok_df.to_csv(f'/home/ubuntu/notebooks/crawl-repo-6/datas/classtok_{datetime.datetime.now().strftime("%y%m%d%H%M%S")}.csv', encoding='utf-8')
+classtok_df.to_csv(f'/home/ubuntu/notebooks/crawling-repo-6/datas/classtok_{datetime.datetime.now().strftime("%y%m%d%H%M%S")}.csv', encoding='utf-8')
 
 
 print('전체')
