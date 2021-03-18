@@ -48,7 +48,7 @@ print('time: ', round((time.time() - start)/60, 1), '분', sep='')
 print('\n')
 
 # 모델 열기
-with open('./model_cat1_210315194501.pkl', 'rb') as file:
+with open('/home/ubuntu/notebooks/crawling-repo-6/model_cat1_210315194501.pkl', 'rb') as file:
     load_model = pickle.load(file)
 
 classtok_df['category_1'] = load_model.predict(classtok_df['title'])
@@ -76,20 +76,24 @@ QUERY = """
     FROM crawled.search
 """
 search_df = pd.read_sql(QUERY, engine, index_col=['index'])
-indexNames = search_df[search_df['site'] == '클래스톡'].index
+search_df.reset_index(drop=True)
 compare_df = search_df[search_df['site'] == '클래스톡']
-search_df.drop(indexNames , inplace=True)
+search_df = search_df[search_df['site'] != '클래스톡']
+compare_df.reset_index(drop=True)
+search_df.reset_index(drop=True)
+
 
 
 # 1-2. 신규 classtok 데이터 추가
 search_df = search_df.append(classtok_df)
-search_df.reset_index
+search_df.reset_index(drop=True)
 search_df.to_sql(name='search', con=engine, if_exists='replace')
 
 
 # 2. save table : 데이터 저장 table
 
 # 2-1. 신규 classtok 데이터 저장
+classtok_df.reset_index(drop=True)
 classtok_df.to_sql(name='save', con=engine, if_exists='append')
 
 
@@ -105,26 +109,27 @@ QUERY = """
     FROM crawled.new_class
 """
 old_class_df = pd.read_sql(QUERY, engine, index_col=['index'])
-stay_class_df = old_class_df[old_class_df['site'] != '클래스톡']
-old_class_df = old_class_df[old_class_df['site'] == '클래스톡']
+old_class_df.reset_index(drop=True)
+old_class_df = old_class_df[old_class_df['crawling_time'].astype(str) > days_ago]
+old_class_df.reset_index(drop=True)
 
-indexNames = old_class_df[old_class_df['crawling_time'] < days_ago].index
-old_class_df.drop(indexNames , inplace=True)
 
 # 3-2. 지난 데이터에 없는 신규강좌 데이터 확인
 new_class_df = pd.DataFrame(columns=['site', 'link', 'title', 'teacher', 'category_1', 'category_2', 's_price', 'discount', 'contentment', 'crawling_time'])
 for i in range(len(classtok_df)):
-    if classtok_df['link'][i] not in compare_df['link'].tolist():
+    if classtok_df['title'].tolist()[i] not in compare_df['title'].tolist():
         new_class_df = new_class_df.append(classtok_df.iloc[i])
 
-new_class_df.reset_index
+new_class_df.reset_index(drop=True)
 
 # 3-3. 신규강좌 데이터 저장
 new_class_df = new_class_df.append(old_class_df)
-new_class_df = new_class_df.append(stay_class_df)
-new_class_df.reset_index
+new_class_df.reset_index(drop=True)
 new_class_df.to_sql(name='new_class', con=engine, if_exists='replace')
 
 
 print('db저장완료')
+print('search_df:', len(search_df))
+print('classtok_df:', len(classtok_df))
+print('new_class_df:', len(new_class_df))
 print('time: ', round((time.time() - start)/60, 1), '분', sep='')
