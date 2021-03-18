@@ -5,8 +5,6 @@ import datetime
 import pandas as pd
 
 from sqlalchemy import *
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
 start  = time.time()
 
 offset = 0
@@ -133,20 +131,24 @@ QUERY = """
     FROM crawled.search
 """
 search_df = pd.read_sql(QUERY, engine, index_col=['index'])
-indexNames = search_df[search_df['site'] == '클래스101'].index
+search_df.reset_index(drop=True)
 compare_df = search_df[search_df['site'] == '클래스101']
-search_df.drop(indexNames , inplace=True)
+search_df = search_df[search_df['site'] != '클래스101']
+compare_df.reset_index(drop=True)
+search_df.reset_index(drop=True)
+
 
 
 # 1-2. 신규 class101 데이터 추가
 search_df = search_df.append(class101_df)
-search_df.reset_index
+search_df.reset_index(drop=True)
 search_df.to_sql(name='search', con=engine, if_exists='replace')
 
 
 # 2. save table : 데이터 저장 table
 
 # 2-1. 신규 class101 데이터 저장
+class101_df.reset_index(drop=True)
 class101_df.to_sql(name='save', con=engine, if_exists='append')
 
 
@@ -162,26 +164,26 @@ QUERY = """
     FROM crawled.new_class
 """
 old_class_df = pd.read_sql(QUERY, engine, index_col=['index'])
-stay_class_df = old_class_df[old_class_df['site'] != '클래스101']
-old_class_df = old_class_df[old_class_df['site'] == '클래스101']
-
-indexNames = old_class_df[old_class_df['crawling_time'] < days_ago].index
-old_class_df.drop(indexNames , inplace=True)
+old_class_df.reset_index(drop=True)
+old_class_df = old_class_df[old_class_df['crawling_time'].astype(str) > days_ago]
+old_class_df.reset_index(drop=True)
 
 # 3-2. 지난 데이터에 없는 신규강좌 데이터 확인
 new_class_df = pd.DataFrame(columns=['site', 'link', 'title', 'teacher', 'category_1', 'category_2', 's_price', 'discount', 'contentment', 'crawling_time'])
 for i in range(len(class101_df)):
-    if class101_df['link'][i] not in compare_df['link'].tolist():
+    if class101_df['title'].tolist()[i] not in compare_df['title'].tolist():
         new_class_df = new_class_df.append(class101_df.iloc[i])
 
-new_class_df.reset_index
+new_class_df.reset_index(drop=True)
 
 # 3-3. 신규강좌 데이터 저장
 new_class_df = new_class_df.append(old_class_df)
-new_class_df = new_class_df.append(stay_class_df)
-new_class_df.reset_index
+new_class_df.reset_index(drop=True)
 new_class_df.to_sql(name='new_class', con=engine, if_exists='replace')
 
 
 print('db저장완료')
+print('search_df:', len(search_df))
+print('class101_df:', len(class101_df))
+print('new_class_df:', len(new_class_df))
 print('time: ', round((time.time() - start)/60, 1), '분', sep='')
