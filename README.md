@@ -6,7 +6,7 @@
 #### - Member: 고원진, 장지혜
 <br/>
 
-
+#
 ![플랫폼](https://user-images.githubusercontent.com/75402257/109494745-a6324d00-7ad1-11eb-86a8-675130405701.png)
 <br/>
 
