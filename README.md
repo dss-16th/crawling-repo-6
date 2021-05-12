@@ -8,7 +8,7 @@
 
 <br/>
 
-# 취미클래스 플랫폼(Class 101, 탈잉, 클래스톡) 별 비교
+# 취미클래스 플랫폼(Class 101, 탈잉, 클래스톡) 통합 검색 웹페이지 
 ## : 취미생활∙자기계발 트렌드를 반영한 검색서비스 제공
 <br/>
 
@@ -20,7 +20,33 @@
 
 <br/>
 
+# 0. 요약
+
+### 0-1. 3개 취미 강좌 사이트(class101, taling, classtok)의 강좌 제목 / 강사 / 카테고리 / 가격 / 별점 등 crawling
+
+   ####    - taling: 카테고리 추가를 위해 MultiNomia Naive Bayesian Model을 이용한 카테고리 부여
+
+
+
+### 0-2. crawling 정보 AWS 서버의 mysql에 저장
+
+
+
+### 0-3. Flask / nginx 를 활용한 웹페이지 제작
+
+
+
+### 0-4. 검색기능 구현
+
+
+
+### 0-5. 웹 서비스 제공
+
+
+<br/>
+
 ## 1. Intro
+
 ### 주제 선정 및 프로젝트 방향
 
 ![취미](https://user-images.githubusercontent.com/75402257/109493201-7b46f980-7acf-11eb-8855-40666dccf54e.png)
