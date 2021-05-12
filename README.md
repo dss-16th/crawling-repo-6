@@ -22,26 +22,88 @@
 
 # 0. 요약
 
+[발표자료](https://drive.google.com/file/d/115hO8CLumxuyMbc66uCjQSXwbjKOlA1n/view?usp=sharing)
+
 ### 0-1. 3개 취미 강좌 사이트(class101, taling, classtok)의 강좌 제목 / 강사 / 카테고리 / 가격 / 별점 등 crawling
-
-   ####    - taling: 카테고리 추가를 위해 MultiNomia Naive Bayesian Model을 이용한 카테고리 부여
-
-
+```python
+ query = [{"operationName":"InfiniteProductCardsWithLastUpdatedInformation", .............}]
+ req = requests.post(url_graphql, json=query, )
+ datas = req.json()
+```
+   - class101: request를 이용하여 graphql data를 post방식 crawling
+      - [class101_final.py](./class101_final.py)
+   - taling: BeautifulSoup 을 이용하여 crawling, 카테고리 추가를 위해 MultiNomia Naive Bayesian Model을 이용한 카테고리 부여
+      - [taling_final.py](./taling_final.py)
+      - [MultinomiaNB_model](./model.py)
+   - classtok: BeautifulSoup 을 이용하여 crawling
+      - [classtok_final.py](./classtok_final.py)
 
 ### 0-2. crawling 정보 AWS 서버의 mysql에 저장
+```python
+# 데이터 베이스에 session 연결
+Session = sessionmaker(engine)
+session = Session()
+session
 
-
+class101_df.to_sql(name='class101', con=engine, if_exists='replace')
+```
+   - [class101_mysql_unified.py](./Database_Mysql/class101_mysql_unified.py)
+   - [classtok_mysql_unified.py](./Database_Mysql/classtok_mysql_unified.py)
+   - [taling_mysql_unified.py](./Database_Mysql/taling_mysql_unified.py)
 
 ### 0-3. Flask / nginx 를 활용한 웹페이지 제작
-
-
+   - [Flask_web_mysql_search.ipynb](./Flask_web_mysql_search.ipynb)
 
 ### 0-4. 검색기능 구현
+```python
+@app.route("/")
+def index():
+    return render_template("index.html")
 
 
+@app.route("/search", methods=['GET', 'POST'])
+def search():
+    result = {} 
+
+ # 문장 가져오기
+    sentence = request.values.get('sentence') # 요청을 했을때 키값이 'sentence'인 내용을 받아오는 코드
+    result['sentence'] = sentence
+```
+   - [webservice.py](./webservice/webservice.py)
 
 ### 0-5. 웹 서비스 제공
+```html
+ <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ <script type="text/javascript">
+     $(document).ready(function(){
+         $(".search").on("click", function(){
+             var sentence = $('.sentence').val();
+             var url='/search?sentence=' + sentence;
 
+             $.getJSON(url, function(response){
+                 console.log(response.datas);
+                 var tag = "";
+                 for (var i=0; i< response.datas.length; i++){
+                     tag += '<tr>';
+                     tag += '    <td>' + i + '</td>';
+                     tag += '    <td>' + response.datas[i].site + '</td>';
+                     tag += '    <td>' + response.datas[i].title + '</td>';
+                     tag += '    <td>' + response.datas[i].category_1 + '</td>';
+                     tag += '    <td>' + response.datas[i].category_2 + '</td>';
+                     tag += '    <td>' + response.datas[i].s_price + '</td>';
+                     tag += '    <td>' + response.datas[i].discount + '</td>';
+                     tag += '    <td>' + response.datas[i].contentment + '</td>';
+                     tag += '    <td>' + response.datas[i].link + '</td>';
+                     tag += '</tr>';
+                 }
+                 $(".table tbody").html(tag);
+             })
+         })
+
+     })
+ </script>
+```
+   - [index.html](./webservice/templates/index.html)
 
 <br/>
 
@@ -196,8 +258,8 @@
 
 ### Member / role
 ##
-- **고원진** / 탈잉, 클래스 101 웹크롤링, DB연동(Mysql), DB 업데이트, 발표 및 검토
-- **장지혜** / 탈잉, 클래스톡 웹크롤링, 웹서비스(Flask), 기획 및 발표자료 준비
+- **고원진** / 탈잉, class101 웹크롤링, 웹서비스&UI(Flask), 검색-DB연동(Mysql), 발표 및 검토, 총괄
+- **장지혜** / 클래스톡 웹크롤링, 웹페이지 디자인(javascript), 발표자료 준비
 
 <br/>
 
