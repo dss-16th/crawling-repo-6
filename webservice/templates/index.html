@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8mb4"><title>당신이 원하는 수업을 찾아드립니다😀</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container pt-3">
+        <!-- 입력창 -->
+        <div class="row">
+            <input type="text" class="col-10 form-control sentence" placeholder="원하는 수업을 입력하세요♥">
+       
+            <button type="button" class="col-2 btn btn-dark search">검색</button>
+        </div>
+        
+        <!-- 결과창 -->
+        <div class="row">
+            <div class="col-12 alert alert-dark mt-2" role="alert">
+                "내가 원하는 클래스 찾기! 원하는 어떤 수업이든 알려드려요~ 🧑‍💻 "
+            </div>
+        </div>
+
+        <!-- 카테고리 별 분류만 보여주는 버튼 -->
+        <div class="row pt-2">
+            <button type="button" class="btn btn btn-dark mt-1">인기수업</button>            
+            <button type="button" class="btn btn-outline-dark mt-1">뷰티/헬스</button>            
+            <button type="button" class="btn btn btn-dark mt-1">액티비티</button>            
+            <button type="button" class="btn btn-outline-dark mt-1">라이프</button>            
+            <button type="button" class="btn btn btn-dark mt-1">취미/공예</button>            
+            <button type="button" class="btn btn-outline-dark mt-1">머니</button>           
+            <button type="button" class="btn btn btn-dark mt-1">커리어</button>            
+            <button type="button" class="btn btn-outline-dark mt-1">디자인/영상</button>            
+            <button type="button" class="btn btn btn-dark mt-1">외국어</button>
+        </div>
+        
+        <div class="row mt-5">
+            <img src="..." class="img-fluid" alt="...">
+        </div>
+        <br>
+        <div class="show-datas row">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">사이트</th>
+                        <th scope="col">강의 제목</th>
+                        <th scope="col">분류1</th>
+                        <th scope="col">분류2</th>
+                        <th scope="col">강의 가격</th>
+                        <th scope="col">할인률</th>
+                        <th scope="col">만족도</th>
+                        <th scope="col">링크</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <div class="form-group">
+            <label for="comment">Comment:</label>
+            <textarea class="form-control" rows="10" id="comment"></textarea>
+        </div>
+            
+            
+
+    <!-- 신규강좌 -->
+        <div class='row'>
+            <div class="col-12 alert alert-dark mt-2" role="alert">
+            신규 강좌
+            </div>
+        </div>
+            
+#         <!-- 차트 -->
+#         <div class="row">
+#             <div id="container" class="w-100"></div>
+#             </div>
+#         </div>
+        
+        
+    </div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(".search").on("click", function(){
+                var sentence = $('.sentence').val();
+                var url='/search?sentence=' + sentence;
+                
+                $.getJSON(url, function(response){
+                    console.log(response.datas);
+                    var tag = "";
+                    for (var i=0; i< response.datas.length; i++){
+                        tag += '<tr>';
+                        tag += '    <td>' + i + '</td>';
+                        tag += '    <td>' + response.datas[i].site + '</td>';
+                        tag += '    <td>' + response.datas[i].title + '</td>';
+                        tag += '    <td>' + response.datas[i].category_1 + '</td>';
+                        tag += '    <td>' + response.datas[i].category_2 + '</td>';
+                        tag += '    <td>' + response.datas[i].s_price + '</td>';
+                        tag += '    <td>' + response.datas[i].discount + '</td>';
+                        tag += '    <td>' + response.datas[i].contentment + '</td>';
+                        tag += '    <td>' + response.datas[i].link + '</td>';
+                        tag += '</tr>';
+                    }
+                    $(".table tbody").html(tag);
+                })
+            })
+            
+        })
+    </script>
+    
+</body>
+</html>
