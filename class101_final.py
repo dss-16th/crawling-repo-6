@@ -121,7 +121,7 @@ print('\n')
 # mysql 저장하기
 print('mysql db 저장 시작')
 
-engine = create_engine("mysql://root:dss@52.78.38.124/crawled?charset=utf8mb4")
+engine = create_engine("mysql://root:<spl_name>@<spl_ip>/crawled?charset=utf8mb4")
 
 # 1. search table : 검색대상 table
 
